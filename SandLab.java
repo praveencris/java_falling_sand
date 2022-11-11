@@ -11,6 +11,7 @@ public class SandLab {
   public static final int EMPTY = 0;
   public static final int METAL = 1;
   public static final int SAND = 2;
+  public static final int WATER = 3;
 
   // do not add any more fields
   private int[][] grid;
@@ -18,10 +19,11 @@ public class SandLab {
 
   public SandLab(int numRows, int numCols) {
     String[] names;
-    names = new String[3];
+    names = new String[4];
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
     names[SAND] = "Sand";
+    names[WATER] = "Water";
     display = new SandDisplay("Falling Sand", numRows, numCols, names);
     grid = new int[numRows][numCols];
 
@@ -43,6 +45,8 @@ public class SandLab {
           color = new Color(128, 128, 128);// Gray
         } else if (grid[i][j] == SAND) {
           color = new Color(255, 255, 0);// Yellow
+        } else if (grid[i][j] == WATER) {
+          color = new Color(255, 255, 255);// White
         } else {
           color = new Color(0, 0, 0);// Black
         }
@@ -66,6 +70,25 @@ public class SandLab {
         }
       }
 
+    } else if (randomLocation == WATER) {
+
+      int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
+      if(direction==Direction.DOWN.ordinal()){
+
+      } else if(direction==Direction.LEFT.ordinal()){
+        
+      }else{
+        
+      }
+
+      if (randomRow < grid.length - 1) {// If below location is possible
+        int belowLocation = grid[randomRow + 1][randomColumn];
+        if (belowLocation == EMPTY) {
+          grid[randomRow][randomColumn] = EMPTY;
+          grid[randomRow + 1][randomColumn] = SAND;
+        }
+      }
+
     }
   }
 
@@ -81,5 +104,9 @@ public class SandLab {
       if (mouseLoc != null) // test if mouse clicked
         locationClicked(mouseLoc[0], mouseLoc[1], display.getTool());
     }
+  }
+
+  enum Direction {
+    LEFT, RIGHT, DOWN
   }
 }
