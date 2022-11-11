@@ -10,6 +10,7 @@ public class SandLab {
   // add constants for particle types here
   public static final int EMPTY = 0;
   public static final int METAL = 1;
+  public static final int SAND = 2;
 
   // do not add any more fields
   private int[][] grid;
@@ -17,9 +18,10 @@ public class SandLab {
 
   public SandLab(int numRows, int numCols) {
     String[] names;
-    names = new String[2];
+    names = new String[3];
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
+    names[SAND] = "Sand";
     display = new SandDisplay("Falling Sand", numRows, numCols, names);
     grid = new int[numRows][numCols];
 
@@ -32,17 +34,19 @@ public class SandLab {
 
   // copies each element of grid into the display
   public void updateDisplay() {
-    for(int i=0;i<grid.length;i++){
-      for(int j=0;j<grid[0].length;j++){
-        Color color=null;
-        if(grid[i][j]== EMPTY){
-            color =new Color(0,0,0);//Black
-        }else if(grid[i][j]==METAL){
-          color =new Color(128,128,128);//Gray 
-        }else{
-           color =new Color(0,0,0);//Black
+    for (int i = 0; i < grid.length; i++) {
+      for (int j = 0; j < grid[0].length; j++) {
+        Color color = null;
+        if (grid[i][j] == EMPTY) {
+          color = new Color(0, 0, 0);// Black
+        } else if (grid[i][j] == METAL) {
+          color = new Color(128, 128, 128);// Gray
+        } else if (grid[i][j] == SAND) {
+          color = new Color(255, 255, 0);// Yellow
+        } else {
+          color = new Color(0, 0, 0);// Black
         }
-        display.setColor(i, j, color);  
+        display.setColor(i, j, color);
       }
     }
   }
