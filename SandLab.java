@@ -65,42 +65,50 @@ public class SandLab {
       if (randomRow < grid.length - 1) {// If below location is possible
         int belowLocation = grid[randomRow + 1][randomColumn];
         if (belowLocation == EMPTY) {
-          grid[randomRow][randomColumn] = EMPTY;
-          grid[randomRow + 1][randomColumn] = SAND;
+          moveDown(randomRow, randomColumn, EMPTY, SAND);
         }
         if (belowLocation == WATER) {
-          grid[randomRow][randomColumn] = WATER;
-          grid[randomRow + 1][randomColumn] = SAND;
+          moveDown(randomRow, randomColumn, WATER, SAND);
         }
       }
     } else if (randomLocation == WATER) {
-
       int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
       if (direction == Direction.DOWN.ordinal()) {
-        if (randomRow < grid.length - 1) {// If below location is possible
-          int belowLocation = grid[randomRow + 1][randomColumn];
-          if (belowLocation == EMPTY) {
-            grid[randomRow][randomColumn] = EMPTY;
-            grid[randomRow + 1][randomColumn] = WATER;
-          }
-        }
-
+        moveDown(randomRow, randomColumn, EMPTY, WATER);
       } else if (direction == Direction.LEFT.ordinal()) {
-        if (randomColumn > 0) {// If left location is possible
-          int leftLocation = grid[randomRow][randomColumn - 1];
-          if (leftLocation == EMPTY) {
-            grid[randomRow][randomColumn] = EMPTY;
-            grid[randomRow][randomColumn - 1] = WATER;
-          }
-        }
+        moveLeft(randomRow, randomColumn, EMPTY, WATER);
       } else if (direction == Direction.RIGHT.ordinal()) {
-        if (randomColumn < grid[0].length - 1) {// If right location is possible
-          int rightLocation = grid[randomRow][randomColumn + 1];
-          if (rightLocation == EMPTY) {
-            grid[randomRow][randomColumn] = EMPTY;
-            grid[randomRow][randomColumn + 1] = WATER;
-          }
-        }
+        moveRight(randomRow, randomColumn, EMPTY, WATER);
+      }
+    }
+  }
+
+  private void moveDown(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+    if (randomRow < grid.length - 1) {// If below location is possible
+      int belowLocation = grid[randomRow + 1][randomColumn];
+      if (belowLocation == fromLocation) {
+        grid[randomRow][randomColumn] = fromLocation;
+        grid[randomRow + 1][randomColumn] = toLocation;
+      }
+    }
+  }
+
+  private void moveLeft(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+    if (randomColumn > 0) {// If left location is possible
+      int leftLocation = grid[randomRow][randomColumn - 1];
+      if (leftLocation == fromLocation) {
+        grid[randomRow][randomColumn] = fromLocation;
+        grid[randomRow][randomColumn - 1] = toLocation;
+      }
+    }
+  }
+
+  private void moveRight(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+    if (randomColumn < grid[0].length - 1) {// If right location is possible
+      int rightLocation = grid[randomRow][randomColumn + 1];
+      if (rightLocation == fromLocation) {
+        grid[randomRow][randomColumn] = fromLocation;
+        grid[randomRow][randomColumn + 1] = toLocation;
       }
     }
   }
