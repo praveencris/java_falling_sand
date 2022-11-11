@@ -64,7 +64,7 @@ public class SandLab {
     if (randomLocation == SAND) {
       if (randomRow < grid.length - 1) {// If below location is possible
         int belowLocation = grid[randomRow + 1][randomColumn];
-        if (belowLocation == EMPTY) {
+        if (belowLocation == EMPTY || belowLocation == WATER) {
           grid[randomRow][randomColumn] = EMPTY;
           grid[randomRow + 1][randomColumn] = SAND;
         }
