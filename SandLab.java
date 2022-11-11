@@ -54,6 +54,19 @@ public class SandLab {
   // called repeatedly.
   // causes one random particle to maybe do something.
   public void step() {
+    int randomRow = new Random().nextInt(grid.length);
+    int randomColumn = new Random().nextInt(grid[0].length);
+    int randomLocation = grid[randomRow][randomColumn];
+    if (randomLocation == SAND) {
+      if (randomRow < grid.length - 1) {// If below location is possible
+        int belowLocation = grid[randomRow + 1][randomColumn];
+        if (belowLocation == EMPTY) {
+          grid[randomRow][randomColumn] = EMPTY;
+          grid[randomRow + 1][randomColumn] = SAND;
+        }
+      }
+
+    }
   }
 
   // do not modify
