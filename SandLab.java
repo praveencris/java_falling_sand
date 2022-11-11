@@ -69,26 +69,35 @@ public class SandLab {
           grid[randomRow + 1][randomColumn] = SAND;
         }
       }
-
     } else if (randomLocation == WATER) {
 
       int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
-      if(direction==Direction.DOWN.ordinal()){
+      if (direction == Direction.DOWN.ordinal()) {
+        if (randomRow < grid.length - 1) {// If below location is possible
+          int belowLocation = grid[randomRow + 1][randomColumn];
+          if (belowLocation == EMPTY) {
+            grid[randomRow][randomColumn] = EMPTY;
+            grid[randomRow + 1][randomColumn] = WATER;
+          }
+        }
 
-      } else if(direction==Direction.LEFT.ordinal()){
-        
-      }else{
-        
-      }
-
-      if (randomRow < grid.length - 1) {// If below location is possible
-        int belowLocation = grid[randomRow + 1][randomColumn];
-        if (belowLocation == EMPTY) {
-          grid[randomRow][randomColumn] = EMPTY;
-          grid[randomRow + 1][randomColumn] = SAND;
+      } else if (direction == Direction.LEFT.ordinal()) {
+        if (randomColumn > 0) {// If left location is possible
+          int leftLocation = grid[randomRow][randomColumn - 1];
+          if (leftLocation == EMPTY) {
+            grid[randomRow][randomColumn] = EMPTY;
+            grid[randomRow][randomColumn - 1] = WATER;
+          }
+        }
+      } else if (direction == Direction.RIGHT.ordinal()) {
+        if (randomColumn < grid[0].length - 1) {// If right location is possible
+          int rightLocation = grid[randomRow][randomColumn + 1];
+          if (rightLocation == EMPTY) {
+            grid[randomRow][randomColumn] = EMPTY;
+            grid[randomRow][randomColumn + 1] = WATER;
+          }
         }
       }
-
     }
   }
 
