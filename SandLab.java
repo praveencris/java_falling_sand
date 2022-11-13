@@ -73,48 +73,75 @@ public class SandLab {
       if (randomRow < grid.length - 1) {// If below location is possible
         int belowLocation = grid[randomRow + 1][randomColumn];
         if (belowLocation == EMPTY) {
-          moveDown(randomRow, randomColumn, EMPTY, SAND);
+          moveDown(randomRow, randomColumn, EMPTY, SAND, EMPTY);
         }
         if (belowLocation == WATER) {
-          moveDown(randomRow, randomColumn, WATER, SAND);
+          moveDown(randomRow, randomColumn, WATER, SAND, WATER);
+        }
+        if (belowLocation == ACID) {
+          moveDown(randomRow, randomColumn, EMPTY, ACID, ACID);
         }
       }
     } else if (randomLocation == WATER) {
       int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
       if (direction == Direction.DOWN.ordinal()) {
-        moveDown(randomRow, randomColumn, EMPTY, WATER);
+        moveDown(randomRow, randomColumn, EMPTY, WATER, EMPTY);
+        moveDown(randomRow, randomColumn, EMPTY, ACID, ACID);
       } else if (direction == Direction.LEFT.ordinal()) {
-        moveLeft(randomRow, randomColumn, EMPTY, WATER);
+        moveLeft(randomRow, randomColumn, EMPTY, WATER, EMPTY);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, ACID);
       } else if (direction == Direction.RIGHT.ordinal()) {
-        moveRight(randomRow, randomColumn, EMPTY, WATER);
+        moveRight(randomRow, randomColumn, EMPTY, WATER, EMPTY);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, ACID);
+      }
+    } else if (randomLocation == ACID) {
+      int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
+      if (direction == Direction.DOWN.ordinal()) {
+        moveDown(randomRow, randomColumn, EMPTY, ACID, EMPTY);
+        moveDown(randomRow, randomColumn, EMPTY, ACID, METAL);
+        moveDown(randomRow, randomColumn, EMPTY, ACID, WATER);
+        moveDown(randomRow, randomColumn, EMPTY, ACID, SAND);
+        moveDown(randomRow, randomColumn, EMPTY, ACID, GAS);
+      } else if (direction == Direction.LEFT.ordinal()) {
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, EMPTY);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, METAL);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, WATER);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, SAND);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, GAS);
+      } else if (direction == Direction.RIGHT.ordinal()) {
+        moveRight(randomRow, randomColumn, EMPTY, ACID, EMPTY);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, METAL);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, WATER);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, SAND);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, GAS);
       }
     }
   }
 
-  private void moveDown(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+  private void moveDown(int randomRow, int randomColumn, int fromLocation, int toLocation, int nextLocationType) {
     if (randomRow < grid.length - 1) {// If below location is possible
       int belowLocation = grid[randomRow + 1][randomColumn];
-      if (belowLocation == fromLocation) {
+      if (belowLocation == nextLocationType) {
         grid[randomRow][randomColumn] = fromLocation;
         grid[randomRow + 1][randomColumn] = toLocation;
       }
     }
   }
 
-  private void moveLeft(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+  private void moveLeft(int randomRow, int randomColumn, int fromLocation, int toLocation, int nextLocationType) {
     if (randomColumn > 0) {// If left location is possible
       int leftLocation = grid[randomRow][randomColumn - 1];
-      if (leftLocation == fromLocation) {
+      if (leftLocation == nextLocationType) {
         grid[randomRow][randomColumn] = fromLocation;
         grid[randomRow][randomColumn - 1] = toLocation;
       }
     }
   }
 
-  private void moveRight(int randomRow, int randomColumn, int fromLocation, int toLocation) {
+  private void moveRight(int randomRow, int randomColumn, int fromLocation, int toLocation, int nextLocationType) {
     if (randomColumn < grid[0].length - 1) {// If right location is possible
       int rightLocation = grid[randomRow][randomColumn + 1];
-      if (rightLocation == fromLocation) {
+      if (rightLocation == nextLocationType) {
         grid[randomRow][randomColumn] = fromLocation;
         grid[randomRow][randomColumn + 1] = toLocation;
       }
