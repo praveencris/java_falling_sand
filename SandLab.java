@@ -12,6 +12,8 @@ public class SandLab {
   public static final int METAL = 1;
   public static final int SAND = 2;
   public static final int WATER = 3;
+  public static final int GAS = 4;
+  public static final int ACID = 5;
 
   // do not add any more fields
   private int[][] grid;
@@ -19,11 +21,13 @@ public class SandLab {
 
   public SandLab(int numRows, int numCols) {
     String[] names;
-    names = new String[4];
+    names = new String[6];
     names[EMPTY] = "Empty";
     names[METAL] = "Metal";
     names[SAND] = "Sand";
     names[WATER] = "Water";
+    names[GAS] = "Gas";
+    names[ACID] = "Acid";
     display = new SandDisplay("Falling Sand", numRows, numCols, names);
     grid = new int[numRows][numCols];
 
@@ -46,7 +50,11 @@ public class SandLab {
         } else if (grid[i][j] == SAND) {
           color = new Color(255, 255, 0);// Yellow
         } else if (grid[i][j] == WATER) {
-          color = new Color(255, 255, 255);// White
+          color = new Color(51, 152, 255);// Blue
+        } else if (grid[i][j] == GAS) {
+          color = new Color(255, 194, 151);// Orange
+        } else if (grid[i][j] == ACID) {
+          color = new Color(255, 0, 0);// Red
         } else {
           color = new Color(0, 0, 0);// Black
         }
