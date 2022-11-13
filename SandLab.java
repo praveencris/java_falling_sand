@@ -94,6 +94,19 @@ public class SandLab {
         moveRight(randomRow, randomColumn, EMPTY, WATER, EMPTY);
         moveRight(randomRow, randomColumn, EMPTY, ACID, ACID);
       }
+    } else if (randomLocation == GAS) {
+      int direction = new Random().nextInt(3);// 1-LEFT,2->RIGHT,3->TOP
+      direction++;
+      if (direction == Direction.TOP.ordinal()) {
+        moveUp(randomRow, randomColumn, EMPTY, GAS, EMPTY);
+        moveUp(randomRow, randomColumn, EMPTY, ACID, ACID);
+      } else if (direction == Direction.LEFT.ordinal()) {
+        moveLeft(randomRow, randomColumn, EMPTY, GAS, EMPTY);
+        moveLeft(randomRow, randomColumn, EMPTY, ACID, ACID);
+      } else if (direction == Direction.RIGHT.ordinal()) {
+        moveRight(randomRow, randomColumn, EMPTY, GAS, EMPTY);
+        moveRight(randomRow, randomColumn, EMPTY, ACID, ACID);
+      }
     } else if (randomLocation == ACID) {
       int direction = new Random().nextInt(3);// 0-DOWN,1-LEFT,2->RIGHT
       if (direction == Direction.DOWN.ordinal()) {
@@ -124,6 +137,16 @@ public class SandLab {
       if (belowLocation == nextLocationType) {
         grid[randomRow][randomColumn] = fromLocation;
         grid[randomRow + 1][randomColumn] = toLocation;
+      }
+    }
+  }
+
+  private void moveUp(int randomRow, int randomColumn, int fromLocation, int toLocation, int nextLocationType) {
+    if (randomRow > 0) {// If below location is possible
+      int topLocation = grid[randomRow - 1][randomColumn];
+      if (topLocation == nextLocationType) {
+        grid[randomRow][randomColumn] = fromLocation;
+        grid[randomRow - 1][randomColumn] = toLocation;
       }
     }
   }
@@ -163,6 +186,6 @@ public class SandLab {
   }
 
   enum Direction {
-    LEFT, RIGHT, DOWN
+    DOWN, LEFT, RIGHT, TOP
   }
 }

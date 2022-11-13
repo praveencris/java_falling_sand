@@ -62,8 +62,8 @@ public class SandDisplay extends JComponent implements MouseListener,
     slider.setMajorTickSpacing(1);
     slider.setPaintTicks(true);
     Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-    labelTable.put(Integer.valueOf(0), new JLabel("Slow"));
-    labelTable.put(Integer.valueOf(100), new JLabel("Fast"));
+    labelTable.put(new Integer(0), new JLabel("Slow"));
+    labelTable.put(new Integer(100), new JLabel("Fast"));
     slider.setLabelTable(labelTable);
     slider.setPaintLabels(true);
 
